@@ -26,6 +26,7 @@ public class DatabaseConnection {
 			String location = rs.getString("Phone1");
 			String tag = rs.getString("Industry_Tag");
 			BusinessArray[count] = new business(name, number, location, tag);
+			count++;
 		}
 		return BusinessArray;
 	}
