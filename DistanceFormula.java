@@ -1,10 +1,7 @@
 public class DistanceFormula {
     public final static double AVERAGE_RADIUS_OF_EARTH_KM = 6371;
     
-    public static void main (String[]args) {
-        calculateDistanceInKilometer()
-    }
-    public int calculateDistanceInKilometer(double userLat, double userLng, double venueLat, double venueLng) {
+    public static int calculateDistanceInKilometer(double userLat, double userLng, double venueLat, double venueLng) {
 
         double latDistance = Math.toRadians(userLat - venueLat);
         double lngDistance = Math.toRadians(userLng - venueLng);
