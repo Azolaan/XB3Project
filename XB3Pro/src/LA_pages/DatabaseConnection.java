@@ -2,7 +2,7 @@ package LA_pages;
 import java.sql.*;
 public class DatabaseConnection {
 
-	private static Connection Initialize() throws SQLException {
+	public static Connection Initialize() throws SQLException {
 		
 		String url = "jdbc:mysql://localhost:3306/test";
 		String username = "root";
