@@ -13,13 +13,20 @@ public class DatabaseConnection_coord {
 	}
 	
 	public static business_coord[] IndustryFilter(Connection con, String search) throws SQLException {
-		Statement stmt = null;
+		Statement stmt1 = null;
+		Statement stmt2 = null;
 		String query = "SELECT * from test.testlist WHERE Industry_Tag LIKE '%" + search + "%'";
-		business_coord[] BusinessArray = new business_coord[12];
-		int count = 0;
+		String count_query = "SELECT COUNT(*) from test.testlist WHERE Industry_Tag LIKE '%" + search + "%'";
 		
-		stmt = con.createStatement();
-		ResultSet rs = stmt.executeQuery(query);
+		stmt2 = con.createStatement();
+		ResultSet nRows = stmt2.executeQuery(count_query);
+		nRows.next();
+		business_coord[] BusinessArray = new business_coord[nRows.getInt("COUNT(*)")];
+		
+		stmt1 = con.createStatement();
+		//int nRows = stmt.executeQuery();
+		ResultSet rs = stmt1.executeQuery(query);
+		int count = 0;
 		while(rs.next()) {
 			String name = rs.getString("doing_business_as");
 			String number = rs.getString("Phone1");
