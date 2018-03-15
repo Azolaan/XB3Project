@@ -59,10 +59,10 @@ public class business_coord {
 		System.out.println("Business Name : " + this.bus_name);
 		System.out.println("Phone Number : " + this.bus_number);
 		System.out.println("Address : " + this.bus_address);
-		System.out.println("Distance : " + Sort_coord.calculateDist(user_lat, user_long, this.bus_lat, this.bus_long)+ " km.");		
+		System.out.println("Distance : " + calculateDist(user_lat, user_long) + " km.");		
 	}
 	
-	public double calculateDist(double user_lat, double user_long){
+	public double calculateDist(double userLat, double userLng){
 		double latDistance = Math.toRadians(userLat - this.bus_lat);
         double lngDistance = Math.toRadians(userLng - this.bus_long);
         double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)

@@ -24,7 +24,6 @@ public class DatabaseConnection_coord {
 		business_coord[] BusinessArray = new business_coord[nRows.getInt("COUNT(*)")];
 		
 		stmt1 = con.createStatement();
-		//int nRows = stmt.executeQuery();
 		ResultSet rs = stmt1.executeQuery(query);
 		int count = 0;
 		while(rs.next()) {
