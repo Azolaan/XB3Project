@@ -1,7 +1,7 @@
 package LA_pages;
 import java.sql.*;
 
-public class main_func {
+public class main_func_coord {
 	public static void main(String[] args) throws SQLException {
 		System.out.println("Enter business tag of choice : ");
 		String user_tag = args[0];
@@ -30,7 +30,7 @@ public class main_func {
 		
 	}
 	
-	public void print(business[] filtered) {
+	public void print(business_coord[] filtered) {
 		for (int e = 0; e < filtered.length; e++) {
 			System.out.println("---------------------------------------\n");
 			System.out.println("Business Name : " + filtered[e].get_name());

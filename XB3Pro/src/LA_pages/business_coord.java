@@ -3,7 +3,7 @@ package LA_pages;
 import java.util.*;
 import java.io.*;
 
-public class business {
+public class business_coord {
 	
 	private String bus_name;
 	private String bus_number;
@@ -14,7 +14,7 @@ public class business {
 	
 	public String user_loc;
 	
-	public business(String name, String number, String location, String tag, double lat, double lon) {
+	public business_coord(String name, String number, String location, String tag, double lat, double lon) {
 		this.bus_name = name;
 		this.bus_number = number;
 		this.loc_address = location;

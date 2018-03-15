@@ -1,6 +1,6 @@
 package LA_pages;
 import java.sql.*;
-public class DatabaseConnection {
+public class DatabaseConnection_coord {
 
 	public static Connection Initialize() throws SQLException {
 		
@@ -12,10 +12,10 @@ public class DatabaseConnection {
 		return connection;
 	}
 	
-	public static business[] IndustryFilter(Connection con, String search) throws SQLException {
+	public static business_coord[] IndustryFilter(Connection con, String search) throws SQLException {
 		Statement stmt = null;
 		String query = "SELECT * from test.testlist WHERE Industry_Tag LIKE '%" + search + "%'";
-		business[] BusinessArray = new business[100];
+		business_coord[] BusinessArray = new business_coord[100];
 		int count = 0;
 		
 		stmt = con.createStatement();
@@ -29,7 +29,7 @@ public class DatabaseConnection {
 			Double lon = Double.parseDouble((coord.split(","))[0].substring(2));
 			Double lat = Double.parseDouble((coord.split(","))[1].substring(0,(coord.split(",").length - 3)));
 			
-			BusinessArray[count] = new business(name, number, location, tag, lat, lon);
+			BusinessArray[count] = new business_coord(name, number, location, tag, lat, lon);
 		}
 		return BusinessArray;
 	}

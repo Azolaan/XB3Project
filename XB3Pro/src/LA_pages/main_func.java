@@ -1,4 +1,4 @@
-package lapages;
+package LA_pages;
 import java.sql.*;
 
 public class main_func {
