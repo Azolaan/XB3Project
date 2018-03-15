@@ -26,14 +26,14 @@ public class business_coord {
 		
 		 */
 	}
-	
-	
+		
 	public double get_lat() {
-		return bus_lat;
+		return this.bus_lat;
 	}
 	
+	
 	public double get_long() {
-		return bus_long;
+		return this.bus_long;
 	}
 	
 	public String get_name() {
@@ -47,4 +47,5 @@ public class business_coord {
 	public String get_address(){
 		return this.loc_address;
 	}
+	
 }
