@@ -25,12 +25,9 @@ public class DatabaseConnection_coord {
 			String number = rs.getString("Phone1");
 			String location = rs.getString("Business_Address");
 			String tag = rs.getString("Industry_Tag");
-			String coord = rs.getString("Longitute");
-			//System.out.println(coord);
+			String coord = rs.getString("Longitude");
 			double lon = Double.parseDouble((coord.split(","))[0].substring(1));
 			double lat = Double.parseDouble((coord.split(","))[1].substring(0,((coord.split(",")[1]).length() - 1)));
-			//System.out.println(lon);
-			//System.out.println(lat);
 			business_coord temp = new business_coord(name, number, location, tag, lat, lon);
 			BusinessArray[count] = temp;
 			count++;
