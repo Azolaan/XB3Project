@@ -1,4 +1,4 @@
-package test;
+package geocoder;
 
 import java.io.IOException;
 

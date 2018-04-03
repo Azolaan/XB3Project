@@ -48,18 +48,20 @@ public class business_coord {
 	}
 	
 	public void printBusiness() {
-		System.out.println("---------------------------------------\n");
+		System.out.println("------------------------------------------------");
 		System.out.println("Business Name : " + this.bus_name);
 		System.out.println("Phone Number : " + this.bus_number);
 		System.out.println("Address : " + this.bus_address);
+		System.out.println("------------------------------------------------");
 	}
 	
 	public void printBusiness(double user_lat, double user_long) {
-		System.out.println("---------------------------------------\n");
+		System.out.println("------------------------------------------------");
 		System.out.println("Business Name : " + this.bus_name);
 		System.out.println("Phone Number : " + this.bus_number);
 		System.out.println("Address : " + this.bus_address);
-		System.out.println("Distance : " + calculateDist(user_lat, user_long) + " km.");		
+		System.out.println("Distance : " + calculateDist(user_lat, user_long) + " km.");
+		System.out.println("------------------------------------------------");
 	}
 	
 	public double calculateDist(double userLat, double userLng){

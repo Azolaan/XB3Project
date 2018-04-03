@@ -1,4 +1,4 @@
-package test;
+package geocoder;
 
 /**
  * ParseException explains why and where the error occurs in source JSON text.

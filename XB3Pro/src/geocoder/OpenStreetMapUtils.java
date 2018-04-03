@@ -1,4 +1,4 @@
-package test;
+package geocoder;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -8,25 +8,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import test.JSONArray;
-import test.JSONObject;
-import test.JSONValue;
-import test.JSONParser;
 
-public class Geocoder {
+public class OpenStreetMapUtils {
 
-	public final static Logger log = Logger.getLogger("OpenStreeMapUtils");
+	public final static Logger log = Logger.getLogger("OpenStreetMapUtils");
 
-	private static Geocoder instance = null;
+	private static OpenStreetMapUtils instance = null;
 	private JSONParser jsonParser;
 
-	public Geocoder() {
+	public OpenStreetMapUtils() {
 		jsonParser = new JSONParser();
 	}
 
-	public static Geocoder getInstance() {
+	public static OpenStreetMapUtils getInstance() {
 		if (instance == null) {
-			instance = new Geocoder();
+			instance = new OpenStreetMapUtils();
 		}
 		return instance;
 	}
@@ -101,8 +97,8 @@ public class Geocoder {
 				String lat = (String) jsonObject.get("lat");
 				//log.debug("lon=" + lon);
 				//log.debug("lat=" + lat);
-				//res.put("lon", Double.parseDouble(lon));
-				//res.put("lat", Double.parseDouble(lat));
+				res.put("lon", Double.parseDouble(lon));
+				res.put("lat", Double.parseDouble(lat));
 
 			}
 		}

@@ -1,4 +1,4 @@
-package test;
+package geocoder;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -9,8 +9,8 @@ import java.util.Collection;
 // import java.util.List;
 import java.util.Map;
 
-import test.JSONParser;
-import test.ParseException;
+import geocoder.JSONParser;
+import geocoder.ParseException;
 
 
 /**

@@ -1,4 +1,4 @@
-package test;
+package geocoder;
 
 import java.util.Map;
 
@@ -6,7 +6,7 @@ import org.apache.log4j.BasicConfigurator;
 
 public class GetCoordinates {
 
-    static String address = "CN Tower, Toronto ON";
+    static String address = "Los Angeles, CA 90095";
 
     public static void main(String[] args) {
         Map<String, Double> coords;

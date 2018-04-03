@@ -1,4 +1,4 @@
-package test;
+package geocoder;
 
 /**
  * @author FangYidong<fangyidong@yahoo.com.cn>

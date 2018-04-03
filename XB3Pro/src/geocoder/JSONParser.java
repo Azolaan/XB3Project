@@ -1,4 +1,4 @@
-package test;
+package geocoder;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -7,8 +7,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import test.JSONArray;
-import test.JSONObject;
+import geocoder.JSONArray;
+import geocoder.JSONObject;
 
 /**
  * Parser for JSON text. Please note that JSONParser is NOT thread-safe.
