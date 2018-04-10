@@ -43,10 +43,15 @@ public class main_func_coord {
 		business_coord[] filtered = DatabaseConnection_coord.IndustryFilter(con, user_tag);
 		Sort_coord.sort(user_lat, user_long, filtered);
 		
-		int[] name_index = name_search.search(user_name, filtered);
+		if (user_name != "0") {
+			int[] name_index = name_search.search(user_name, filtered);
 		
-		print_name_searched(name_index, filtered);
-		print(name_index, filtered);
+			print_name_searched(name_index, filtered);
+			print(name_index, filtered);
+		}
+		else {
+			print_tag(filtered);
+		}
 	}
 	
 	public static void print(int[] index, business_coord[] filtered) {
@@ -57,6 +62,14 @@ public class main_func_coord {
 				filtered[e].printBusiness(user_lat, user_long);
 			else
 				marker++;
+		}
+		System.out.println("------------------------------------------------");
+	}
+	
+	public static void print_tag(business_coord[] filtered) {
+		System.out.println("------------MATCHING INDUSTRY TAG---------------");
+		for (int e = 0; e < filtered.length; e++) {
+			filtered[e].printBusiness(user_lat, user_long);
 		}
 		System.out.println("------------------------------------------------");
 	}
