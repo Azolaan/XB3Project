@@ -5,13 +5,13 @@ import java.io.*;
 
 public class business_coord {
 	
-	private String bus_name;
-	private String bus_number;
-	private String bus_address;
-	private String bus_tag;
-	private double bus_lat;
-	private double bus_long;
-	public String user_loc;
+	private final String bus_name;
+	private final String bus_number;
+	private final String bus_address;
+	private final String bus_tag;
+	private final double bus_lat;
+	private final double bus_long;
+	private int bus_ID;
 	public final static double AVERAGE_RAD_EARTH_KM = 6371.0;
 	
 	public business_coord(String name, String number, String location, String tag, double lat, double lon) {
@@ -21,8 +21,17 @@ public class business_coord {
 		this.bus_tag = tag;
 		this.bus_lat = lat;
 		this.bus_long = lon;
+		this.bus_ID = -1;
 	}
-		
+	
+	public void set_ID(int id) {
+		this.bus_ID = id;
+	}
+	
+	public int get_ID() {
+		return this.bus_ID;
+	}
+	
 	public double get_lat() {
 		return this.bus_lat;
 	}

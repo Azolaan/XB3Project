@@ -16,20 +16,13 @@ public class main_func_coord {
 		System.out.println("Enter business tag of choice : ");
 		String user_tag = args[0];
 		
+		String user_tag2 = args[1];
+		
 		// takes business name to prioritize businesses that match the name
 		System.out.println("Enter business name (optional, enter 0 if no preference))");
-		String user_name = args[1];
+		String user_name = args[2];
 		
-		/*
-		// takes user longitude and latitude
-		System.out.println("Please enter longitude");
-		user_long = Double.parseDouble(args[2]);
-		System.out.println("Please enter latitude");
-		user_lat = Double.parseDouble(args[3]);
-		*/
-		
-		System.out.println("Enter current location (address)");
-		String user_loc = args[2];
+		String user_loc = args[3];
 		System.out.println(user_loc);
 		
 		//address to lon and lat coordinates
@@ -43,12 +36,42 @@ public class main_func_coord {
 		business_coord[] filtered = DatabaseConnection_coord.IndustryFilter(con, user_tag);
 		Sort_coord.sort(user_lat, user_long, filtered);
 		
-		if (user_name != "0") {
+		// 1 tag and specific business name
+		if (user_name != "0" && user_tag2 == "0") {
 			int[] name_index = name_search.search(user_name, filtered);
 		
 			print_name_searched(name_index, filtered);
 			print(name_index, filtered);
 		}
+		else if (user_name != "0") {
+			business_coord[] filtered2 = DatabaseConnection_coord.IndustryFilter(con, user_tag2);
+			Sort_coord.sort(user_lat, user_long, filtered2);
+			business_coord [] for_graph = new business_coord [12];
+			for_graph[0] = new business_coord("src", "", "","",user_lat, user_long);
+			for_graph[11] = new business_coord("","","","",0,0);
+			for(int i = 0; i < 5; i++) {
+				for_graph[i+1] = filtered[i];
+				for_graph[i+6] = filtered2[i];
+			}
+			for (int i = 0; i < 12; i ++)
+				for_graph[i].set_ID(i);
+			EdgeWeightedDigraph G = new EdgeWeightedDigraph(12);
+			// src to A
+			for (int i = 1; i < 6; i ++) {
+				G.addEdge(new DirectedEdge(for_graph[0],for_graph[i], for_graph[0].calculateDist(for_graph[i].get_lat(), for_graph[i].get_long())));
+			}
+			// A to B
+			for (int i = 0; i < 5; i ++)
+				for (int j = 0; j < 5; j++)
+					G.addEdge(new DirectedEdge(for_graph[i+1], for_graph[j+6], for_graph[0].calculateDist(for_graph[i+1].get_lat(), for_graph[j+6].get_long())));
+			// B to Dummy
+			for (int i = 0; i < 5; i++)
+				G.addEdge(new DirectedEdge(for_graph[6+i], for_graph[11], 23));
+			DijkstraSP spPath = new DijkstraSP(G, for_graph[0]);
+			Iterable<DirectedEdge> spPath2 = spPath.pathTo(for_graph[11]);
+			printSP(spPath2);
+		}
+		// tag and no specific business name
 		else {
 			print_tag(filtered);
 		}
@@ -79,6 +102,13 @@ public class main_func_coord {
 		for (int i = 0; i < index.length; i++) {
 			if (index[i] != -1)
 				filtered[index[i]].printBusiness(user_lat, user_long);
+		}
+	}
+	
+	public static void printSP(Iterable<DirectedEdge> path) {
+		System.out.println("------------SHORTEST PATH-------------");
+		for(DirectedEdge x : path) {
+			System.out.println(x.from().get_name());
 		}
 	}
 }
