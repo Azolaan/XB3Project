@@ -32,44 +32,50 @@ public class main_func_coord {
 		user_lat = coords.get("lat");
 		
 		// establish connection
-		Connection con = DatabaseConnection_coord.Initialize();
+		Connection con = DatabaseConnection_coord.Initialize("jdbc:mysql://127.0.0.1:3306/business_schema", "root", "120800");
 		business_coord[] filtered = DatabaseConnection_coord.IndustryFilter(con, user_tag);
 		Sort_coord.sort(user_lat, user_long, filtered);
-		
+
 		// 1 tag and specific business name
-		if (user_name != "0" && user_tag2 == "0") {
+		if (!user_name.equals("0") && user_tag2.equals("0")) {
 			int[] name_index = name_search.search(user_name, filtered);
 		
 			print_name_searched(name_index, filtered);
 			print(name_index, filtered);
 		}
-		else if (user_name != "0") {
+		else if (!user_tag2.equals("0")) {
 			business_coord[] filtered2 = DatabaseConnection_coord.IndustryFilter(con, user_tag2);
 			Sort_coord.sort(user_lat, user_long, filtered2);
-			business_coord [] for_graph = new business_coord [12];
-			for_graph[0] = new business_coord("src", "", "","",user_lat, user_long);
-			for_graph[11] = new business_coord("","","","",0,0);
-			for(int i = 0; i < 5; i++) {
-				for_graph[i+1] = filtered[i];
-				for_graph[i+6] = filtered2[i];
+			if (filtered.length < 2 || filtered2.length < 2) {
+				System.out.println("NOT ENOUGH MATCHING INDUSTRY TAGS");
+				
 			}
-			for (int i = 0; i < 12; i ++)
-				for_graph[i].set_ID(i);
-			EdgeWeightedDigraph G = new EdgeWeightedDigraph(12);
-			// src to A
-			for (int i = 1; i < 6; i ++) {
-				G.addEdge(new DirectedEdge(for_graph[0],for_graph[i], for_graph[0].calculateDist(for_graph[i].get_lat(), for_graph[i].get_long())));
+			else {
+				business_coord [] for_graph = new business_coord [6];
+				for_graph[0] = new business_coord("src", "", "","",user_lat, user_long);
+				for_graph[5] = new business_coord("","","","",0,0);
+				for(int i = 0; i < 2; i++) {
+					for_graph[i+1] = filtered[i];
+					for_graph[i+3] = filtered2[i];
+				}
+				for (int i = 0; i < 6; i ++)
+					for_graph[i].set_ID(i);
+				EdgeWeightedDigraph G = new EdgeWeightedDigraph(6);
+				// src to A
+				for (int i = 1; i < 3; i ++) {
+					G.addEdge(new DirectedEdge(for_graph[0],for_graph[i], for_graph[0].calculateDist(for_graph[i].get_lat(), for_graph[i].get_long())));
+				}
+				// A to B
+				for (int i = 0; i < 2; i ++)
+					for (int j = 0; j < 2; j++)
+					G.addEdge(new DirectedEdge(for_graph[i+1], for_graph[j+3], for_graph[0].calculateDist(for_graph[i+1].get_lat(), for_graph[j+3].get_long())));
+				// B to Dummy
+				for (int i = 0; i < 2; i++)
+					G.addEdge(new DirectedEdge(for_graph[3+i], for_graph[5], 50));
+				DijkstraSP spPath = new DijkstraSP(G, for_graph[0]);
+				Iterable<DirectedEdge> spPath2 = spPath.pathTo(for_graph[5]);
+				printSP(spPath2);
 			}
-			// A to B
-			for (int i = 0; i < 5; i ++)
-				for (int j = 0; j < 5; j++)
-					G.addEdge(new DirectedEdge(for_graph[i+1], for_graph[j+6], for_graph[0].calculateDist(for_graph[i+1].get_lat(), for_graph[j+6].get_long())));
-			// B to Dummy
-			for (int i = 0; i < 5; i++)
-				G.addEdge(new DirectedEdge(for_graph[6+i], for_graph[11], 23));
-			DijkstraSP spPath = new DijkstraSP(G, for_graph[0]);
-			Iterable<DirectedEdge> spPath2 = spPath.pathTo(for_graph[11]);
-			printSP(spPath2);
 		}
 		// tag and no specific business name
 		else {

@@ -8,11 +8,7 @@ import geocoder.*;
 
 public class DatabaseConnection_coord {
 
-	public static Connection Initialize() throws SQLException {
-		
-		String url = "jdbc:mysql://localhost:3306/test";
-		String username = "root";
-		String password = "120800";
+	public static Connection Initialize(String url, String username, String password) throws SQLException {
 		
 		Connection connection = DriverManager.getConnection(url, username, password);
 		if (connection != null)
@@ -23,8 +19,8 @@ public class DatabaseConnection_coord {
 	public static business_coord[] IndustryFilter(Connection con, String search) throws SQLException {
 		Statement stmt1 = null;
 		Statement stmt2 = null;
-		String query = "SELECT * from test.testlist WHERE Industry_Tag LIKE '%" + search + "%'";
-		String count_query = "SELECT COUNT(*) from test.testlist WHERE Industry_Tag LIKE '%" + search + "%'";
+		String query = "SELECT * from business_schema.listing_of_active_businesses WHERE PRIMARY_NAICS_DESCRIPTION LIKE '%" + search + "%' AND PRIMARY_NAICS_DESCRIPTION IS NOT NULL";
+		String count_query = "SELECT COUNT(*) from business_schema.listing_of_active_businesses WHERE PRIMARY_NAICS_DESCRIPTION LIKE '%" + search + "%' AND PRIMARY_NAICS_DESCRIPTION IS NOT NULL";
 		
 		stmt2 = con.createStatement();
 		ResultSet nRows = stmt2.executeQuery(count_query);
@@ -36,26 +32,28 @@ public class DatabaseConnection_coord {
 		ResultSet rs = stmt1.executeQuery(query);
 		int count = 0;
 		while(rs.next()) {
-			String name = rs.getString("doing_business_as");
-			String number = rs.getString("Phone1");
-			String location = rs.getString("Business_Address");
-			String city = rs.getString("City");
-			String coord = rs.getString("Longitude");
+			String name = rs.getString("BUSINESS_NAME");
+			String number = rs.getString("ZIP_CODE");
+			String location = rs.getString("STREET_ADDRESS");
+			String city = rs.getString("CITY");
+			String coord = rs.getString("LOCATION");
 			/*Pattern p = Pattern.compile("([0-9a-zA-Z\\s]+)(#[0-9]+)?");
 			Matcher m = p.matcher(location);
 			//location = location.replaceAll(".\\d", "");*/
-			String tag = rs.getString("Industry_Tag");
+			String tag = rs.getString("NAICS");
 			Map<String, Double> coords;
 			//m.find();
-			double lat = Double.parseDouble((coord.split(","))[0].substring(1));
-			double lon = Double.parseDouble((coord.split(","))[1].substring(0,((coord.split(",")[1]).length() - 1)));
+			if (coord.contains(",")) {
+				double lat = Double.parseDouble((coord.split(","))[0].substring(1));
+				double lon = Double.parseDouble((coord.split(","))[1].substring(0,((coord.split(",")[1]).length() - 1)));
 			
 			
-			//coords = OpenStreetMapUtils.getInstance().getCoordinates(m[0]);
+				//coords = OpenStreetMapUtils.getInstance().getCoordinates(m[0]);
 	        
-			business_coord temp = new business_coord(name, number, location, tag, lat, lon);
-			BusinessArray[count] = temp;
-			count++;
+				business_coord temp = new business_coord(name, number, location, tag, lat, lon);
+				BusinessArray[count] = temp;
+				count++;
+			}
 		}
 		
 		return BusinessArray;
