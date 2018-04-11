@@ -3,6 +3,17 @@ package LA_pages;
 import edu.princeton.cs.algs4.IndexMinPQ;
 import edu.princeton.cs.algs4.Stack;
 
+/**
+ * class for DijkstraSP ADT
+ * Modified version of referenced material
+ * 
+ * **********REFERENCED MATERIAL**********
+ * Title: DijkstraSP.java
+ * Authors: Robert Sedgewick, Kevin Wayne
+ * Available: https://algs4.cs.princeton.edu/44sp/DijkstraSP.java.html
+ * 
+ * @author Group 13
+ */
 public class DijkstraSP {
 	private DirectedEdge[] edgeTo;
 	private double[] distTo;

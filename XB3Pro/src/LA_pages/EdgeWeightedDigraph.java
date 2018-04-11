@@ -2,6 +2,16 @@ package LA_pages;
 
 import edu.princeton.cs.algs4.Bag;
 
+/**
+ * class for EdgeWeightedDigraph ADT Modified version of referenced material
+ * 
+ * **********REFERENCED MATERIAL********** 
+ * Title: EdgeWeightedDigraph.java
+ * Authors: Robert Sedgewick, Kevin Wayne Available:
+ * https://algs4.cs.princeton.edu/44sp/EdgeWeightedDigraph.java.html
+ * 
+ * @author Group 13
+ */
 public class EdgeWeightedDigraph {
 	private final int V;
 	private int E;

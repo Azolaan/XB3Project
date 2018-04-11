@@ -3,6 +3,13 @@ import java.sql.*;
 import java.util.Arrays;
 import java.util.Map;
 
+/**
+ * 
+ * **********REFERENCED MATERIAL**********
+ * Title: Geocoder
+ * Authors: Julien Delange
+ * Available: http://julien.gunnm.org/geek/programming/2015/09/13/how-to-get-geocoding-information-in-java-without-google-maps-api/
+ */
 import geocoder.OpenStreetMapUtils;
 
 public class main_func_coord {
